@@ -1,12 +1,20 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
+
+type Page struct {
+	Title string
+	Body  []byte
+}
 
 func main() {
 	fmt.Println("Hello world")
 }
 
-type Page struct {
-	Title string
-	Body  []byte
+func (p *Page) save() error {
+	filename := p.Title + ".txt"
+	return os.WriteFile(filename, p.Body, 0600)
 }
