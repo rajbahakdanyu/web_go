@@ -9,9 +9,11 @@ import (
 func main() {
 
 	// API routes
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello there")
-	})
+
+	// Serve files from static folder
+	http.Handle("/", http.FileServer(http.Dir("./static")))
+
+	// Serve api /hi
 	http.HandleFunc("/hi", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Hi")
 	})
@@ -21,4 +23,5 @@ func main() {
 
 	// Start server on port specified above
 	log.Fatal(http.ListenAndServe(port, nil))
+
 }
